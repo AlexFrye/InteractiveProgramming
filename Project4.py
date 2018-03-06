@@ -9,6 +9,7 @@ import pygame
 screen_width = 480
 screen_height = 480
 red = (255, 0, 0)
+black = (0,0,0)
 
 
 """
@@ -44,18 +45,20 @@ class Player(pygame.sprite.Sprite):
         self.gravity()
         self.rect.x += self.change_x
         self.rect.y += self.change_y
+        print(self.rect.x, self.rect.y)
     def gravity(self):
         if self.change_y == 0:
             self.change_y = 1
-        else self.change_y += 0.35
+        else:
+             self.change_y += 0.35
 
         if self.rect.y >= screen_height - self.rect.height and self.change_y>=0:
             self.change_y = 0
-            self.rect_y = screen_height -slef.rect.height
+            self.rect_y = screen_height -self.rect.height
     def left(self):
-        self.change_x = -5
+        self.change_x = -7
     def right(self):
-        self.change_x = 5
+        self.change_x = 7
     def jump(self):
         self.change_y = -10
 
@@ -70,6 +73,8 @@ def main():
     screen = pygame.display.set_mode(size)
 
     player = Player()
+    active_sprite_list = pygame.sprite.Group()
+    active_sprite_list.add(player)
 
     done = False
 
@@ -77,22 +82,27 @@ def main():
 
     while not done:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT():
-                done = True
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_LEFT:
-                player.left()
-            if event.key == pygame.K_RIGHT:
-                player.right()
-            if event.key == pygame.K_UP:
-                player.jump()
-        if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT and player.change_x < 0:
-                player.stop()
-            if event.key == pygame.K_RIGHT and player.change_x > 0:
-                player.stop()
+            #if event.type == pygame.QUIT():
+            #    done = True
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    player.left()
+                if event.key == pygame.K_RIGHT:
+                    player.right()
+                if event.key == pygame.K_UP:
+                    player.jump()
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_LEFT and player.change_x < 0:
+                    player.stop()
+                if event.key == pygame.K_RIGHT and player.change_x > 0:
+                    player.stop()
+
+        screen.fill(black)
+        active_sprite_list.update()
+        active_sprite_list.draw(screen)
         clock.tick(60)
-        pygame.display.flip()
+        pygame.display.update()
+        #pygame.display.flip()
     pygame.quit()
 
 if __name__ == "__main__":
