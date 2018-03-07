@@ -35,6 +35,7 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface([width, height])
         self.image.fill(red)
 
+        #makes the brick into a rectangle
         self.rect = self.image.get_rect()
 
         self.change_x = 0
@@ -46,20 +47,26 @@ class Player(pygame.sprite.Sprite):
         self.rect.x += self.change_x
         self.rect.y += self.change_y
         print(self.rect.x, self.rect.y)
+
     def gravity(self):
+        #defines gravity
         if self.change_y == 0:
             self.change_y = 1
         else:
              self.change_y += 0.35
 
-        if self.rect.y >= screen_height - self.rect.height and self.change_y>=0:
+        if self.rect.y > = screen_height - self.rect.height and self.change_y > =0:
             self.change_y = 0
             self.rect_y = screen_height -self.rect.height
+
     def left(self):
+        #move left
         self.change_x = -7
     def right(self):
+        #move right
         self.change_x = 7
     def jump(self):
+        #move up
         self.change_y = -10
 
     def stop(self):
@@ -69,15 +76,20 @@ class Player(pygame.sprite.Sprite):
 
 def main():
     pygame.init()
+
+    #defines screen size
     size = [screen_width, screen_height]
     screen = pygame.display.set_mode(size)
 
+    #instantiates a player object and adds it to a group of sprites
     player = Player()
     active_sprite_list = pygame.sprite.Group()
     active_sprite_list.add(player)
 
+    #end condition  - ensures looping
     done = False
 
+    #ensures framerate
     clock = pygame.time.Clock()
 
     while not done:
@@ -85,6 +97,7 @@ def main():
             #if event.type == pygame.QUIT():
             #    done = True
             if event.type == pygame.KEYDOWN:
+                #if a key is pressed, call the approiate action
                 if event.key == pygame.K_LEFT:
                     player.left()
                 if event.key == pygame.K_RIGHT:
@@ -92,16 +105,17 @@ def main():
                 if event.key == pygame.K_UP:
                     player.jump()
             if event.type == pygame.KEYUP:
+                #if the key is released, stop the player
                 if event.key == pygame.K_LEFT and player.change_x < 0:
                     player.stop()
                 if event.key == pygame.K_RIGHT and player.change_x > 0:
                     player.stop()
 
-        screen.fill(black)
-        active_sprite_list.update()
-        active_sprite_list.draw(screen)
-        clock.tick(60)
-        pygame.display.update()
+        screen.fill(black) #overwrite the screen
+        active_sprite_list.update() #update the sprites
+        active_sprite_list.draw(screen) #draw the sprites
+        clock.tick(60) #max framerate = 60fps
+        pygame.display.update() #update the display
         #pygame.display.flip()
     pygame.quit()
 
