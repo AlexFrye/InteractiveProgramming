@@ -12,6 +12,14 @@ BLUE = (0, 0, 255)
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
+class Background(pygame.sprite.Sprite):
+    '''creates background'''
+    def __init__(self, image_file, location):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = pygame.transform.scale(pygame.image.load(image_file), (SCREEN_WIDTH, SCREEN_HEIGHT))
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = location
+
 class Player(pygame.sprite.Sprite):
     '''Represents the player controlled object'''
 
@@ -24,8 +32,10 @@ class Player(pygame.sprite.Sprite):
             This could aslo be an image loaded off the disk'''
         width = 40
         height = 60
-        self.image = pygame.Surface([width, height])
-        self.image.fill(WHITE)
+        img = pygame.image.load('doge.png')
+        self.image = pygame.transform.scale(img, (width, height))
+        #self.image = pygame.Surface([width, height])
+        #self.image.fill(WHITE)
 
         '''set refernce to the image rect'''
         self.rect = self.image.get_rect()
@@ -111,9 +121,10 @@ class Platform(pygame.sprite.Sprite):
         '''platform constructor. Assumes constructed with user passing in an array of
         five numbers like what is defined at the top of this code'''
         super().__init__()
-
-        self.image = pygame.Surface([width, height])
-        self.image.fill(GREEN)
+        img = pygame.image.load('cloud.png')
+        self.image = pygame.transform.scale(img, (width, height))
+        #self.image = pygame.Surface([width, height])
+        #self.image.fill(GREEN)
         self.rect = self.image.get_rect()
 
 class Level():
@@ -139,7 +150,7 @@ class Level():
         '''draw everyhting on this level'''
 
         '''draw background'''
-        screen.fill(BLACK)
+        #screen.fill(BLACK)
 
         '''draw all the sprite lists that we have'''
         self.platform_list.draw(screen)
@@ -157,6 +168,8 @@ class Level():
 
         for enemy in self.enemy_list:
             enemy.rect.x += shift_x
+
+
 
 class Level_01(Level):
     '''defines level 1'''
@@ -214,6 +227,7 @@ def main():
     size = [SCREEN_WIDTH, SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption('Side-Scrollin Platformer')
+    BackGround = Background('background_test.jpeg', [0, 0])
     #create the player'''
     player = Player()
     #crate levels'''
@@ -238,22 +252,24 @@ def main():
 
     #MAIN GAME LOOP'''
     while not done:
+        screen.fill(WHITE)
+        screen.blit(BackGround.image, BackGround.rect)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
 
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
+                if event.key == pygame.K_a:
                     player.go_left()
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_d:
                     player.go_right()
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_w:
                     player.jump()
 
             if event.type == pygame.KEYUP:
-                if event.key == pygame.K_LEFT and player.change_x < 0:
+                if event.key == pygame.K_a and player.change_x < 0:
                     player.stop()
-                if event.key == pygame.K_RIGHT and player.change_x > 0:
+                if event.key == pygame.K_d and player.change_x > 0:
                     player.stop()
 
     #update player'''
