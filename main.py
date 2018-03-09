@@ -1,4 +1,22 @@
-'''import statememnts'''
+import pygame
+from player import Player
+from background import Background
+from platform import Platform
+from level import Level
+from level_01 import Level_01
+from level_02 import Level_02
+
+
+#global constants
+''' Colors '''
+BLACK = (0,0,0)
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+''' Screen Dimensions'''
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
 
 
 def main():
