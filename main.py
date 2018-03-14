@@ -19,9 +19,37 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 
+
+
+#pygame.init()
+
+"""
+
+def text_object(text, font):
+    textSurface = font.render(text, True, WHITE)
+    return textSurface, textSurface.get_rect()
+def message_display(text):
+    largeText = pygame.font.SysFont(None, 120)
+    TextSurf, TextRect = text_object(text, largeText)
+    TextRect.center = ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2))
+    gameDisplay.blit(TextSurf, TextRect)
+
+    pygame.display.update()
+    time.sleep(2)
+    main()
+"""
+
+def text(text):
+    font = pygame.font.Font(None, 120)
+    text = font.render(text, 1, (0,0,0))
+    text_box = text.get_rect(centerx = DISPLAYSURF.get_width()/2)
+    background.bilt(text, text_box)
+
 def main():
     '''main program'''
     pygame.init()
+
+    #setting up font
 
     #set height and width of the screen'''
     size = [SCREEN_WIDTH, SCREEN_HEIGHT]
@@ -65,6 +93,10 @@ def main():
                     player.go_right()
                 if event.key == pygame.K_w:
                     player.jump()
+                    player.subtract_health(3)
+                    #message_display(player.health)
+                    #text(player.health)
+                    print (player.health)
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a and player.change_x < 0:
