@@ -12,7 +12,7 @@ SCREEN_HEIGHT = 600
 
 import random
 
-def projectile(pygame.sprite.Sprite):
+class Projectile(pygame.sprite.Sprite):
 
     def __init__(self, x, y, v_foward, v_down):
         """
@@ -20,7 +20,7 @@ def projectile(pygame.sprite.Sprite):
         v_foward is x velocity
         """
         super().__init__()
-        self.image = pygame,Surface([ 10, 10])
+        self.image = pygame.Surface([ 10, 10])
         self.image.fill(BLUE)
 
 
@@ -29,7 +29,7 @@ def projectile(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
         self.v_foward = v_foward
-        self.v_down
+        self.v_down = v_down
 
 
     def update(self):

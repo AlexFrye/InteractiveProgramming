@@ -5,6 +5,7 @@ from platform import Platform
 from level import Level
 from level_01 import Level_01
 from level_02 import Level_02
+from projectile import Projectile
 
 
 #global constants
@@ -78,6 +79,11 @@ def main():
     #used to manage how fast the screen updates'''
     clock = pygame.time.Clock()
 
+    projectile_list = pygame.sprite.Group()
+
+
+
+
     #MAIN GAME LOOP'''
     while not done:
         screen.fill(WHITE)
@@ -97,6 +103,13 @@ def main():
                     #message_display(player.health)
                     #text(player.health)
                     print (player.health)
+
+                if event.key == pygame.K_SPACE:
+                    bullet = Projectile(player.rect.x, player.rect.y, 12, 0)
+                    active_sprite_list.add(bullet)
+                    projectile_list.add(bullet)
+
+
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a and player.change_x < 0:
