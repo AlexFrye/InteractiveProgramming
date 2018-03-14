@@ -21,7 +21,7 @@ class Projectile(pygame.sprite.Sprite):
         """
         super().__init__()
         self.image = pygame.Surface([ 10, 10])
-        self.image.fill(BLUE)
+        self.image.fill(RED)
 
 
         self.rect = self.image.get_rect()

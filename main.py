@@ -1,4 +1,5 @@
 import pygame
+import random
 from player import Player
 from background import Background
 from platform import Platform
@@ -80,6 +81,7 @@ def main():
     clock = pygame.time.Clock()
 
     projectile_list = pygame.sprite.Group()
+    bullet_list = pygame.sprite.Group()
 
 
 
@@ -99,15 +101,15 @@ def main():
                     player.go_right()
                 if event.key == pygame.K_w:
                     player.jump()
-                    player.subtract_health(3)
+                    #player.subtract_health(3)
                     #message_display(player.health)
                     #text(player.health)
-                    print (player.health)
+                    #print (player.health)
 
                 if event.key == pygame.K_SPACE:
                     bullet = Projectile(player.rect.x, player.rect.y, 12, 0)
                     active_sprite_list.add(bullet)
-                    projectile_list.add(bullet)
+                    bullet_list.add(bullet)
 
 
 
@@ -116,6 +118,22 @@ def main():
                     player.stop()
                 if event.key == pygame.K_d and player.change_x > 0:
                     player.stop()
+
+        #dropping projectiles
+
+        odds_of_drop = random.randint(1,100)
+        if odds_of_drop <10:
+            projectile = Projectile(random.randrange(SCREEN_WIDTH), random.randrange(1,5), 0, random.randrange(5,8))
+            active_sprite_list.add(projectile)
+            projectile_list.add(projectile)
+
+        hits = pygame.sprite.spritecollide(player,projectile_list, True)
+        if hits:
+            player.subtract_health(1)
+            #projectile_list.remove(projectile)
+            print("hit")
+            print(player.health)
+            #projectile.kill()
 
     #update player'''
         active_sprite_list.update()
