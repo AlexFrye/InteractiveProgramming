@@ -9,6 +9,7 @@ from level_02 import Level_02
 from projectile import Projectile
 from walls import Wall
 from enemy import Enemy
+from label import Label
 
 
 
@@ -28,27 +29,7 @@ SCREEN_HEIGHT = 600
 
 #pygame.init()
 
-"""
 
-def text_object(text, font):
-    textSurface = font.render(text, True, WHITE)
-    return textSurface, textSurface.get_rect()
-def message_display(text):
-    largeText = pygame.font.SysFont(None, 120)
-    TextSurf, TextRect = text_object(text, largeText)
-    TextRect.center = ((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2))
-    gameDisplay.blit(TextSurf, TextRect)
-
-    pygame.display.update()
-    time.sleep(2)
-    main()
-"""
-
-def text(text):
-    font = pygame.font.Font(None, 120)
-    text = font.render(text, 1, (0,0,0))
-    text_box = text.get_rect(centerx = DISPLAYSURF.get_width()/2)
-    background.bilt(text, text_box)
 
 def main():
     '''main program'''
@@ -105,7 +86,7 @@ def main():
 
     projectile_list = pygame.sprite.Group()
     bullet_list = pygame.sprite.Group()
-
+    message_list = pygame.sprite.Group()
 
 
 
