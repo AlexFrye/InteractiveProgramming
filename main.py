@@ -80,12 +80,16 @@ def main():
 
 
     #bad guys
+    enemyList = pygame.sprite.Group()
     for level in level_list:
+        level.enemy_list.add(Enemy())
+        level.enemy_list.add(Enemy())
         level.enemy_list.add(Enemy())
         level.enemy_list.add(Enemy())
         level.enemy_list.add(Enemy())
         for enemy in level.enemy_list:
             active_sprite_list.add(enemy)
+            enemyList.add(enemy)
             enemy.level = current_level
 
 
@@ -138,10 +142,16 @@ def main():
                 if event.key == pygame.K_d and player.change_x > 0:
                     player.stop()
 
+
+        #hit test between bullets and enemies
+        pygame.sprite.groupcollide(bullet_list, enemyList, True, True)
+
+
+
         #dropping projectiles
 
         odds_of_drop = random.randint(1,100)
-        if odds_of_drop <10:
+        if odds_of_drop <5:
             projectile = Projectile(random.randrange(SCREEN_WIDTH), random.randrange(1,5), 0, random.randrange(5,8))
             active_sprite_list.add(projectile)
             projectile_list.add(projectile)
@@ -153,6 +163,7 @@ def main():
             print("hit")
             print(player.health)
             #projectile.kill()
+
 
     #update player'''
         active_sprite_list.update()

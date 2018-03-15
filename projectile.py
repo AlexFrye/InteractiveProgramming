@@ -20,11 +20,40 @@ class Projectile(pygame.sprite.Sprite):
         v_foward is x velocity
         """
         super().__init__()
-        self.image = pygame.Surface([ 10, 10])
-        self.image.fill(RED)
 
 
+
+
+
+        if v_foward != 0:
+            img = pygame.image.load('laser.png')
+
+            #img_rotated = pygame.transform.rotate(img, 90)
+            #img_flipped = pygame.transform.flip(img, False, True)
+            self.image = pygame.transform.scale(img, (50, 15))
+
+
+        else:
+            img = pygame.image.load('meteor.png')
+
+            img_flipped = pygame.transform.flip(img, False, True)
+            self.image = pygame.transform.scale(img_flipped, (15, 50))
+        #self.image = pygame.Surface([width, height])
+        #self.image.fill(WHITE)
+
+        '''set refernce to the image rect'''
         self.rect = self.image.get_rect()
+
+
+
+
+
+
+        #self.image = pygame.Surface([ 10, 10])
+        #self.image.fill(RED)
+
+
+        #self.rect = self.image.get_rect()
 
         self.rect.x = x
         self.rect.y = y
