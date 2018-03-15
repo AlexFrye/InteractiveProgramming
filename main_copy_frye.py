@@ -135,7 +135,7 @@ def main():
             print(player.health)
             #projectile.kill()
 
-    #update player'''
+    #update player'''op
         active_sprite_list.update()
     #update items in the level'''
         current_level.update()

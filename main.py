@@ -7,6 +7,9 @@ from level import Level
 from level_01 import Level_01
 from level_02 import Level_02
 from projectile import Projectile
+from walls import Wall
+from enemy import Enemy
+
 
 
 #global constants
@@ -57,7 +60,7 @@ def main():
     size = [SCREEN_WIDTH, SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption('Side-Scrollin Platformer')
-    BackGround = Background('background_test.jpeg', [0, 0])
+    BackGround = Background('shinning-stars-space-background.jpg', [0, 0])
     #create the player'''
     player = Player()
     #crate levels'''
@@ -74,6 +77,22 @@ def main():
     player.rect.x = 340
     player.rect.y = SCREEN_HEIGHT - player.rect.height
     active_sprite_list.add(player)
+
+
+    #bad guys
+    for level in level_list:
+        level.enemy_list.add(Enemy())
+        level.enemy_list.add(Enemy())
+        level.enemy_list.add(Enemy())
+        for enemy in level.enemy_list:
+            active_sprite_list.add(enemy)
+            enemy.level = current_level
+
+
+
+
+
+
 
     #loop until the user clicks close button'''
     done = False

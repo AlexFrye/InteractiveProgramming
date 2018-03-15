@@ -2,6 +2,7 @@ import pygame
 import random
 
 
+
 #global constants
 ''' Colors '''
 BLACK = (0,0,0)
