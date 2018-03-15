@@ -38,6 +38,21 @@ class Player(pygame.sprite.Sprite):
         '''list of sprites we can bump up against'''
         self.level = None
 
+        self.health = 100 #start with 100 health
+
+
+    def subtract_health(self, value):
+        """
+        creating health attribute
+        call subtract_health(value) to subtract value from health
+        """
+
+        self.health = self.health - value
+
+        if self.health <=0:
+            self.health = 0
+            self.kill()
+
 
     def update(self):
         '''move player'''
