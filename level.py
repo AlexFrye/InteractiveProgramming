@@ -18,6 +18,7 @@ class Level():
     def __init__(self, player):
         '''constructor. pass in a handle to player. needed for when moving
         platforms collide with player'''
+        self.walls_list = pygame.sprite.Group()
         self.platform_list = pygame.sprite.Group()
         self.enemy_list = pygame.sprite.Group()
         self.player = player
@@ -29,6 +30,7 @@ class Level():
     def update(self):
         self.platform_list.update()
         self.enemy_list.update()
+        self.walls_list.update()
 
     def draw(self, screen):
         '''draw everyhting on this level'''
@@ -49,6 +51,13 @@ class Level():
         '''go through all the sprite lists and shift everything'''
         for platform in self.platform_list:
             platform.rect.x += shift_x
+
+        for enemy in self.enemy_list:
+            enemy.rect.x += shift_x
+
+        '''do the same for walls and enemies'''
+        for wall in self.walls_list:
+            wall.rect.x += shift_x
 
         for enemy in self.enemy_list:
             enemy.rect.x += shift_x

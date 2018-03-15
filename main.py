@@ -5,6 +5,8 @@ from platform import Platform
 from level import Level
 from level_01 import Level_01
 from level_02 import Level_02
+from walls import Wall
+from enemy import Enemy
 
 
 #global constants
@@ -27,7 +29,7 @@ def main():
     size = [SCREEN_WIDTH, SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
     pygame.display.set_caption('Side-Scrollin Platformer')
-    BackGround = Background('background_test.jpeg', [0, 0])
+    BackGround = Background('shinning-stars-space-background.jpg', [0, 0])
     #create the player'''
     player = Player()
     #crate levels'''
@@ -44,6 +46,15 @@ def main():
     player.rect.x = 340
     player.rect.y = SCREEN_HEIGHT - player.rect.height
     active_sprite_list.add(player)
+
+    #bad guys
+    for level in level_list:
+        level.enemy_list.add(Enemy())
+        level.enemy_list.add(Enemy())
+        level.enemy_list.add(Enemy())
+        for enemy in level.enemy_list:
+            active_sprite_list.add(enemy)
+            enemy.level = current_level
 
     #loop until the user clicks close button'''
     done = False
@@ -86,14 +97,24 @@ def main():
             diff = 120 - player.rect.left
             player.rect.left = 120
             current_level.shift_world(diff)
-    #if the player gets to the end of the level, go to next level'''
         current_position = player.rect.x + current_level.world_shift
+
+    #if the player gets to the end of the level, go to next level
         if current_position < current_level.level_limit:
             player.rect.x = 120
             if current_level_no < len(level_list) - 1:
                 current_level_no += 1
                 current_level = level_list[current_level_no]
                 player.level = current_level
+
+#making enemies move towards Player
+#BROKEN
+        #for level in level_list:
+        #    for enemy in level.enemy_list:
+        #        if enemy.rect.x >= player.rect.x:
+        #            enemy.change_x = - enemy.change_x
+        #        if enemy.rect.x <= player.rect.x:
+        #            enemy.change_x = -enemy.change_x
 
     #all code to draw should go below this comment'''
         current_level.draw(screen)

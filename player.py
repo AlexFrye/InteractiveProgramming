@@ -38,6 +38,7 @@ class Player(pygame.sprite.Sprite):
         '''list of sprites we can bump up against'''
         self.level = None
 
+
     def update(self):
         '''move player'''
 
@@ -46,6 +47,7 @@ class Player(pygame.sprite.Sprite):
 
         '''move left right'''
         self.rect.x += self.change_x
+
 
         '''check for collisions'''
         block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
@@ -68,6 +70,13 @@ class Player(pygame.sprite.Sprite):
             '''stop vertical movement'''
             self.change_y = 0
 
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.walls_list, False)
+        for block in block_hit_list:
+            '''reset position based on the left/right of the object'''
+            if self.change_x > 0:
+                self.rect.right = block.rect.left
+            elif self.change_x < 0:
+                self.rect.left = block.rect.right
 
 
     def calc_grav(self):
