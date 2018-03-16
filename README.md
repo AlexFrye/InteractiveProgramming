@@ -9,4 +9,9 @@ Instructions:
 Required libraries:
 -PyGame
 
-Instructions: W,A,S,D control player movement, while the space bar can be used to shoot lasers at Jeff Bezos. Avoid falling meteors. Move right to advance levels.
+Instructions: 
+-W,A,S,D control player movement, while the space bar can be used to shoot lasers at Jeff Bezos. Avoid falling meteors. Move right to advance levels.
+
+
+
+Our project write-up/reflection can be found in this repo as a pdf file.
